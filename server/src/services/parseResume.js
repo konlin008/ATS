@@ -1,17 +1,13 @@
-import fs from "fs";
-import pdf from "pdf-parse";
+import { PDFParse } from "pdf-parse";
 
-export const parseResume = async (req, res) => {
+export const parseResume = async (filePath) => {
   try {
-    const dataBuffer = fs.readFileSync(req.file.path);
+    const parser = new PDFParse({ url: filePath });
 
-    const data = await pdf(dataBuffer);
-
-    return data.text;
+    const result = await parser.getText();
+    return result.text;
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    console.error(`Failed to read file at ${filePath}:`, error.message);
+    throw error;
   }
 };

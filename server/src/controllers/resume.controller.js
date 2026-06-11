@@ -1,3 +1,4 @@
+import normalizeResume from "../services/normalizeResume.js";
 import { parseResume } from "../services/parseResume.js";
 
 export const uploadResume = async (req, res) => {
@@ -17,14 +18,15 @@ export const uploadResume = async (req, res) => {
         message: "Job description is required",
       });
 
-    const parsedResume = parseResume();
+    const parsedResume = await parseResume(resumeFile.path);
+    const normalizedData = await normalizeResume(parsedResume);
     res.status(200).json({
       success: true,
       message: "Data received successfully",
       jd,
       data: {
         fileName: resumeFile.filename,
-        filePath: resumeFile.path,
+        normalizedData,
       },
     });
   } catch (error) {
