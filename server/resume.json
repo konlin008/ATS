@@ -1,0 +1,383 @@
+[
+  {
+    "name": "Aman Mondal",
+    "email": "amanofficial0108@gmail.com",
+    "phone": "+91 91239 70930",
+    "location": "",
+    "github": "https://github.com/konlin008",
+    "linkedin": "https://www.linkedin.com/in/aman-mondal",
+    "portfolio": "portfolio",
+    "summary": "MERN stack developer with hands-on experience building full-stack web applications Proficient in React, Node.js, MongoDB, and Express with practical experience in JWT authentication, REST APIs, Socket.io.",
+    "skills": [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "JWT Authentication",
+      "Zod Validation",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "React",
+      "Redux Toolkit",
+      "Zustand",
+      "Tailwind",
+      "Shadcn UI",
+      "MongoDB (NoSQL)",
+      "Git",
+      "GitHub",
+      "Stripe Payments",
+      "Cloudinary",
+      "Socket.io"
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Computer Applications (BCA)",
+        "institution": "Narula Institute of Technology",
+        "startYear": "2022",
+        "endYear": "2025",
+        "cgpa": ""
+      },
+      {
+        "degree": "Higher Secondary (10+2)",
+        "institution": "Kalyan Nagar Vidyapith, India",
+        "startYear": "2019",
+        "endYear": "2021",
+        "cgpa": ""
+      },
+      {
+        "degree": "Secondary (10th)",
+        "institution": "Sodepur High School, India",
+        "startYear": "2018",
+        "endYear": "2019",
+        "cgpa": ""
+      }
+    ],
+    "experience": [],
+    "projects": [
+      {
+        "name": "Skillora",
+        "technologies": [
+          "React",
+          "Node.js",
+          "MongoDB",
+          "Express",
+          "Redux",
+          "Tailwind",
+          "Stripe"
+        ],
+        "description": [
+          "Built a full-stack LMS with React 19, Node.js, and MongoDB enabling instructors to publish video courses and students to enroll via Stripe payments and track course completion progress.",
+          "Implemented JWT-based authentication with role-based access control for instructor and student dashboards, using Redux Toolkit for global state management across a multi-page React application.",
+          "Integrated Cloudinary for cloud video storage and Stripe for payment processing, building a complete course commerce pipeline from upload to enrollment to progress tracking."
+        ]
+      },
+      {
+        "name": "TaskZen",
+        "technologies": [
+          "React 19",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Socket.io",
+          "Zustand",
+          "Tailwind CSS"
+        ],
+        "description": [
+          "Developed a full-stack multi-user task management platform using React 19, Node.js, Express, and MongoDB with three-tier role-based access control (Owner, Admin, Member) for workspace and project management.",
+          "Built a real-time Kanban board with drag-and-drop using dnd-kit and live task-level chat powered by Socket.io, enabling teams to update task status, track deadlines, and collaborate in real time.",
+          "Architected a RESTful backend with Express 5 and Mongoose featuring nested permission logic across workspaces, projects, and tasks with deadline tracking and role-scoped data visibility for each member."
+        ]
+      },
+      {
+        "name": "GatePe",
+        "technologies": [
+          "React 19",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "Auth0",
+          "Tailwind CSS"
+        ],
+        "description": [
+          "Developed a full-stack event ticketing platform using React 19, Node.js, and MongoDB where organizers can list shows, set ticket prices and dates, and users can purchase tickets via Stripe payment integration.",
+          "Implemented QR code ticket generation post-payment using the qrcode library, enabling users to present digital tickets at venue gates for seamless entry verification by gate staff.",
+          "Built a GateMate scanner interface using html5-qrcode for real-time ticket validation at entry points, with Auth0 authentication and Zod schema validation securing the platform end-to-end."
+        ]
+      }
+    ],
+    "certifications": [],
+    "achievements": [],
+    "languages": []
+  },
+  {
+    "overallScore": 92,
+    "categoryScores": {
+      "skillsMatch": 88,
+      "experienceRelevance": 98,
+      "titleAlignment": 94,
+      "formattingStructure": 83
+    },
+    "matchedKeywords": ["react.js", "node.js", "express.js", "mongodb", "aws"],
+    "missingKeywords": ["postgresql", "typescript", "microservices"],
+    "strengths": [
+      "Strong match in required skills.",
+      "Relevant experience and projects.",
+      "Excellent alignment with the job title."
+    ],
+    "weaknesses": ["Missing key sections or information in the resume."],
+    "suggestions": [
+      "Consider adding experience or projects related to: postgresql, typescript, microservices.",
+      "Add a summary or objective statement."
+    ]
+  }
+]
+
+You are an expert ATS resume optimization engine.
+
+You will receive:
+
+
+
+CURRENT_RESUME_JSON
+
+ATS_ANALYSIS_JSON
+
+Your goal is to improve the resume while remaining completely truthful to the candidate's actual background.
+
+STRICT RULES:
+
+
+
+Return ONLY a valid JSON object.
+
+Do not return markdown, explanations, comments, or code blocks.
+
+Preserve the EXACT JSON schema and field structure of CURRENT_RESUME_JSON.
+
+Never add, remove, or rename fields.
+
+Never invent:
+
+work experience
+
+internships
+
+projects
+
+certifications
+
+education
+
+achievements
+
+technologies
+
+skills
+
+responsibilities
+
+that are not supported by the resume.
+
+You MAY:
+
+rewrite summaries
+
+improve project descriptions
+
+improve wording
+
+reorder skills
+
+emphasize relevant technologies already present
+
+improve ATS keyword coverage using existing evidence
+
+Missing keywords from ATS_ANALYSIS_JSON may only be added if there is clear evidence in:
+
+resume skills
+
+project technologies
+
+project descriptions
+
+experience descriptions
+
+If a missing keyword is not supported by the resume, DO NOT add it.
+
+Preserve all factual information.
+
+Improve ATS alignment by:
+
+matching terminology used in the JOB_DESCRIPTION
+
+using standardized technical names
+
+highlighting relevant skills and projects
+
+improving keyword density naturally
+
+Do not stuff keywords unnaturally.
+
+Do not fabricate metrics.
+
+If numerical results already exist, preserve them.
+
+If no metrics exist, improve wording without creating numbers.
+
+Rewrite the professional summary to align with the target role while remaining truthful.
+
+Rewrite project descriptions to:
+
+begin with strong action verbs
+
+emphasize impact
+
+highlight relevant technologies
+
+improve ATS keyword matching
+
+Remove duplicate skills and technologies.
+
+OUTPUT REQUIREMENTS:
+
+Return a single valid JSON object matching the exact structure of CURRENT_RESUME_JSON.
+
+CURRENT_RESUME_JSON:
+
+{
+    "name": "Aman Mondal",
+    "email": "amanofficial0108@gmail.com",
+    "phone": "+91 91239 70930",
+    "location": "",
+    "github": "https://github.com/konlin008",
+    "linkedin": "https://www.linkedin.com/in/aman-mondal",
+    "portfolio": "portfolio",
+    "summary": "MERN stack developer with hands-on experience building full-stack web applications Proficient in React, Node.js, MongoDB, and Express with practical experience in JWT authentication, REST APIs, Socket.io.",
+    "skills": [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "JWT Authentication",
+      "Zod Validation",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "React",
+      "Redux Toolkit",
+      "Zustand",
+      "Tailwind",
+      "Shadcn UI",
+      "MongoDB (NoSQL)",
+      "Git",
+      "GitHub",
+      "Stripe Payments",
+      "Cloudinary",
+      "Socket.io"
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Computer Applications (BCA)",
+        "institution": "Narula Institute of Technology",
+        "startYear": "2022",
+        "endYear": "2025",
+        "cgpa": ""
+      },
+      {
+        "degree": "Higher Secondary (10+2)",
+        "institution": "Kalyan Nagar Vidyapith, India",
+        "startYear": "2019",
+        "endYear": "2021",
+        "cgpa": ""
+      },
+      {
+        "degree": "Secondary (10th)",
+        "institution": "Sodepur High School, India",
+        "startYear": "2018",
+        "endYear": "2019",
+        "cgpa": ""
+      }
+    ],
+    "experience": [],
+    "projects": [
+      {
+        "name": "Skillora",
+        "technologies": [
+          "React",
+          "Node.js",
+          "MongoDB",
+          "Express",
+          "Redux",
+          "Tailwind",
+          "Stripe"
+        ],
+        "description": [
+          "Built a full-stack LMS with React 19, Node.js, and MongoDB enabling instructors to publish video courses and students to enroll via Stripe payments and track course completion progress.",
+          "Implemented JWT-based authentication with role-based access control for instructor and student dashboards, using Redux Toolkit for global state management across a multi-page React application.",
+          "Integrated Cloudinary for cloud video storage and Stripe for payment processing, building a complete course commerce pipeline from upload to enrollment to progress tracking."
+        ]
+      },
+      {
+        "name": "TaskZen",
+        "technologies": [
+          "React 19",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Socket.io",
+          "Zustand",
+          "Tailwind CSS"
+        ],
+        "description": [
+          "Developed a full-stack multi-user task management platform using React 19, Node.js, Express, and MongoDB with three-tier role-based access control (Owner, Admin, Member) for workspace and project management.",
+          "Built a real-time Kanban board with drag-and-drop using dnd-kit and live task-level chat powered by Socket.io, enabling teams to update task status, track deadlines, and collaborate in real time.",
+          "Architected a RESTful backend with Express 5 and Mongoose featuring nested permission logic across workspaces, projects, and tasks with deadline tracking and role-scoped data visibility for each member."
+        ]
+      },
+      {
+        "name": "GatePe",
+        "technologies": [
+          "React 19",
+          "Node.js",
+          "Express",
+          "MongoDB",
+          "Stripe",
+          "Auth0",
+          "Tailwind CSS"
+        ],
+        "description": [
+          "Developed a full-stack event ticketing platform using React 19, Node.js, and MongoDB where organizers can list shows, set ticket prices and dates, and users can purchase tickets via Stripe payment integration.",
+          "Implemented QR code ticket generation post-payment using the qrcode library, enabling users to present digital tickets at venue gates for seamless entry verification by gate staff.",
+          "Built a GateMate scanner interface using html5-qrcode for real-time ticket validation at entry points, with Auth0 authentication and Zod schema validation securing the platform end-to-end."
+        ]
+      }
+    ],
+    "certifications": [],
+    "achievements": [],
+    "languages": []
+  }
+
+ATS_ANALYSIS_JSON:
+
+  {
+    "overallScore": 92,
+    "categoryScores": {
+      "skillsMatch": 88,
+      "experienceRelevance": 98,
+      "titleAlignment": 94,
+      "formattingStructure": 83
+    },
+    "matchedKeywords": ["react.js", "node.js", "express.js", "mongodb", "aws"],
+    "missingKeywords": ["postgresql", "typescript", "microservices"],
+    "strengths": [
+      "Strong match in required skills.",
+      "Relevant experience and projects.",
+      "Excellent alignment with the job title."
+    ],
+    "weaknesses": ["Missing key sections or information in the resume."],
+    "suggestions": [
+      "Consider adding experience or projects related to: postgresql, typescript, microservices.",
+      "Add a summary or objective statement."
+    ]
+  }
+
