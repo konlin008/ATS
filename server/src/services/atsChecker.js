@@ -1,6 +1,6 @@
 import { ai } from "../config/gemini.js";
 
-export default async function atsChecker(resumeData, jdData) {
+export default async function atsChecker(resume, jd) {
   const systemPrompt = `You are a deterministic ATS scoring engine.
 
 INPUTS:
@@ -73,10 +73,11 @@ OUTPUT FORMAT:
 }
 
 Resume JSON:
-${resumeData}
+
+${resume}
 
 Job Description JSON:
-${jdData}`;
+${jd}`;
 
   try {
     const response = await ai.models.generateContent({
@@ -86,7 +87,7 @@ ${jdData}`;
         responseMimeType: "application/json",
       },
     });
-
+    console.log(response.tex);
     return JSON.parse(response.text);
   } catch (error) {
     console.error("JD normalization failed:", error);

@@ -23,17 +23,17 @@ export const uploadResume = async (req, res) => {
       });
     console.log("Normalizeing jd...");
     const normalizedJddd = await normalizeJD(jd);
-    // console.log("Parsing resume to normal text...");
-    // const parsedResume = await parseResume(resumeFile.path);
-    // console.log("Normalizeing resume...");
-    // const normalizedResume = await normalizeResume(parsedResume);
-    // console.log("Calculating ats Score...");
-    // const atsResult = await atsChecker(normalizedResume, normalizedJddd);
+    console.log("Parsing resume to normal text...");
+    const parsedResume = await parseResume(resumeFile.path);
+    console.log("Normalizeing resume...");
+    const normalizedResume = await normalizeResume(parsedResume);
+    console.log("Calculating ats Score...");
+    const atsResult = await atsChecker(normalizedResume, normalizedJddd);
     res.status(200).json({
       success: true,
       message: "Data received successfully",
       data: {
-        normalizedJddd,
+        atsResult,
       },
     });
   } catch (error) {
@@ -47,10 +47,10 @@ export const uploadResume = async (req, res) => {
 };
 export const genrateResume = async (req, res) => {
   try {
-    // const { resume, jd, ats } = req.body;
-    // if (!resume || !jd || !ats)
-    //   return res.status(400).json({ message: "Bad Request" });
-    const resumeJson = await genrateUpdatedResume();
+    const { resume, jd, ats } = req.body;
+    if (!resume || !jd || !ats)
+      return res.status(400).json({ message: "Bad Request" });
+    const resumeJson = await genrateUpdatedResume(resume, jd, ats);
     return res.status(200).json({ resumeJson });
   } catch (error) {
     console.log(error);
