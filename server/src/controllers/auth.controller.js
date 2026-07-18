@@ -107,3 +107,25 @@ export const login = async (req, res) => {
     });
   }
 };
+export const callback = async (req, res) => {
+  try {
+    const user = req.user;
+    const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+    if (user) {
+      return res.redirect(`${process.env.CLIENT_URL}/login`);
+    }
+    const token = generateToken(user._id, user.email);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    return res.redirect(`${CLIENT_URL}/oauth-success`);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};

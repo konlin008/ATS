@@ -6,12 +6,33 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      trim: true,
       lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
+      select: false, 
+    },
+    name: {
+      type: String,
       required: true,
+    },
+    avatar: {
+      type: String,
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    githubId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    authProviders: {
+      type: [String],
+      default: ["local"],
     },
   },
   { timestamps: true },
