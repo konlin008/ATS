@@ -1,6 +1,8 @@
 import { Sun, Moon, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import authStore from "@/store/authStore";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -15,6 +17,8 @@ export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [dark, setDark] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const user = authStore((state) => state.user);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -56,12 +60,19 @@ export default function Navbar() {
             {dark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
 
-          <Button
-            variant="outline"
-            className="text-slate-700 hover:text-slate-900 hover:bg-slate-100 h-10"
-          >
-            Login
-          </Button>
+          {user ? (
+            ""
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                className="text-slate-700 hover:text-slate-900 hover:bg-slate-100 h-10"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            </>
+          )}
 
           <Button className="bg-blue-600 text-white hover:bg-blue-700 h-10">
             Get Started

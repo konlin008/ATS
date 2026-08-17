@@ -5,7 +5,7 @@ import generateToken from "../utils/generateToken.js";
 
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({
@@ -26,6 +26,7 @@ export const register = async (req, res) => {
     const hashedPassword = await hashPassword(password);
 
     const user = await User.create({
+      name,
       email,
       password: hashedPassword,
     });
@@ -39,6 +40,7 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       success: false,
       message: "Registration failed",
@@ -57,7 +59,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
       return res.status(401).json({
@@ -110,22 +112,56 @@ export const login = async (req, res) => {
 export const callback = async (req, res) => {
   try {
     const user = req.user;
-    const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
-    if (user) {
-      return res.redirect(`${process.env.CLIENT_URL}/login`);
-    }
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+
     const token = generateToken(user._id, user.email);
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-    return res.redirect(`${CLIENT_URL}/oauth-success`);
+
+    return res.redirect(`${clientUrl}/oauth-success`);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",
+    });
+  }
+};
+export const me = async (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+      user: req.user,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Logout failed",
     });
   }
 };
