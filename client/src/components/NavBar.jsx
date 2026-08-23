@@ -23,14 +23,18 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="#home" className="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onClick={() => navigate("/")}
+          className="flex shrink-0 items-center gap-2"
+        >
           <div className="w-7">
             <img src="scorioLogo.png" alt="logo" />
           </div>
           <span className="text-[20px] font-semibold tracking-tight text-slate-900">
             <span className="font-bold text-blue-500">Sco</span>rio
           </span>
-        </a>
+        </button>
 
         <ul className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
@@ -74,7 +78,10 @@ export default function Navbar() {
             </>
           )}
 
-          <Button className="bg-blue-600 text-white hover:bg-blue-700 h-10">
+          <Button
+            className="h-10 bg-blue-600 text-white hover:bg-blue-700"
+            onClick={() => navigate("/upload-resume")}
+          >
             Get Started
           </Button>
         </div>
@@ -128,10 +135,17 @@ export default function Navbar() {
                 <Sun className="h-4 w-4" />
               )}
             </button>
-            <Button variant="ghost" className="flex-1 text-slate-700">
+            <Button
+              variant="ghost"
+              className="flex-1 text-slate-700"
+              onClick={() => navigate("/login")}
+            >
               Login
             </Button>
-            <Button className="flex-1 bg-indigo-600 text-white hover:bg-indigo-700">
+            <Button
+              className="flex-1 bg-blue-600 text-white hover:bg-blue-700"
+              onClick={() => navigate("/upload-resume")}
+            >
               Get Started
             </Button>
           </div>

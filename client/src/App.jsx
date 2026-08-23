@@ -5,6 +5,7 @@ import Home from "./pages/homePages/Home";
 import Register from "./pages/authPages/Register";
 import Login from "./pages/authPages/Login";
 import OAuthSuccess from "./pages/authPages/OAuthSuccess";
+import UploadResume from "./pages/uploadResume/UploadResume";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -14,6 +15,10 @@ function App() {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/upload-resume",
+          element: <UploadResume />,
         },
       ],
     },

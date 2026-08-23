@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const stats = [
   {
@@ -54,6 +55,8 @@ const avatars = [
 ];
 
 export default function Hero() {
+  const navigate = useNavigate();
+
   return (
     <section
       id="home"
@@ -80,7 +83,10 @@ export default function Hero() {
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <Button className="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-blue-600 px-7 text-base font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
+              <Button
+                className="inline-flex h-14 items-center justify-center gap-2 rounded-md bg-blue-600 px-7 text-base font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700"
+                onClick={() => navigate("/upload-resume")}
+              >
                 Analyze My Resume
                 <ArrowRight className="h-5 w-5" />
               </Button>
