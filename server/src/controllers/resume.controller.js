@@ -1,4 +1,3 @@
-import { json } from "express";
 import atsChecker from "../services/atsChecker.js";
 import genrateUpdatedResume from "../services/genrateResume.js";
 import normalizeJD from "../services/normalizeJd.js";

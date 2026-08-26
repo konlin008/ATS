@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
@@ -18,6 +18,7 @@ import {
   WandSparkles,
   X,
 } from "lucide-react";
+import { useUploadResume } from "@/hooks/resume.jooks";
 
 const featureCards = [
   {
@@ -57,6 +58,7 @@ const UploadResume = () => {
   const [resumeFile, setResumeFile] = useState(null);
   const [jobDescription, setJobDescription] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const { mutate, isSuccess, data, isError, error } = useUploadResume();
 
   const wordCount = useMemo(() => {
     return jobDescription.trim()
@@ -68,7 +70,10 @@ const UploadResume = () => {
 
   const handleAnalyze = () => {
     setIsAnalyzing(true);
-    window.setTimeout(() => setIsAnalyzing(false), 900);
+    const formData = new FormData();
+    formData.append("resume", resumeFile);
+    formData.append("jd", jobDescription);
+    mutate(formData);
   };
 
   const handleFileChange = (file) => {
@@ -84,7 +89,16 @@ const UploadResume = () => {
       fileInputRef.current.value = "";
     }
   };
-
+  useEffect(() => {
+    if (isSuccess) {
+      setIsAnalyzing(true);
+      console.log(data);
+    }
+    if (isError) {
+      console.log(error);
+      setIsAnalyzing(true);
+    }
+  }, [isSuccess, isError]);
   return (
     <div className="w-full py-8 sm:py-10">
       <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
@@ -236,8 +250,8 @@ const UploadResume = () => {
                 className="mt-2 min-h-72 w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
               />
               <FieldDescription>
-                Include responsibilities, required skills, preferred skills,
-                and seniority details for a better analysis.
+                Include responsibilities, required skills, preferred skills, and
+                seniority details for a better analysis.
               </FieldDescription>
             </Field>
           </div>
@@ -316,8 +330,8 @@ const UploadResume = () => {
             <div className="flex items-start gap-3">
               <WandSparkles className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
               <p className="text-sm leading-6 text-blue-950">
-                The analyzer highlights missing keywords, formatting issues,
-                and practical rewrite ideas for the target role.
+                The analyzer highlights missing keywords, formatting issues, and
+                practical rewrite ideas for the target role.
               </p>
             </div>
           </div>
