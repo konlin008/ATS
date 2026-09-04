@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
@@ -42,9 +42,9 @@ const featureCards = [
 ];
 
 const scoreItems = [
-  { label: "Keyword Match", value: 82, color: "bg-blue-600" },
-  { label: "Role Alignment", value: 74, color: "bg-emerald-500" },
-  { label: "Formatting", value: 91, color: "bg-orange-500" },
+  { label: "Experince Match", color: "bg-purple-600", tag: "experienceMatch" },
+  { label: "Skills Match", color: "bg-emerald-500", tag: "skillsMatch" },
+  { label: "Formatting Match", color: "bg-orange-500", tag: "formattingMatch" },
 ];
 
 const preparationSteps = [
@@ -58,7 +58,12 @@ const UploadResume = () => {
   const [resumeFile, setResumeFile] = useState(null);
   const [jobDescription, setJobDescription] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const { mutate, isSuccess, data, isError, error } = useUploadResume();
+  const { mutate } = useUploadResume();
+  const [scoreItemsValue, setScoreItemsValue] = useState({
+    experienceMatch: 0,
+    skillsMatch: 0,
+    formattingMatch: 0,
+  });
 
   const wordCount = useMemo(() => {
     return jobDescription.trim()
@@ -73,7 +78,27 @@ const UploadResume = () => {
     const formData = new FormData();
     formData.append("resume", resumeFile);
     formData.append("jd", jobDescription);
-    mutate(formData);
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log();
+        // setScoreItemsValue(
+        //   {
+        //     experienceMatch: data.atsResult.categoryScores.experienceRelevance,
+        //   },
+        //   {
+        //     skillsMatch: data.atsResult.categoryScores.skillsMatch,
+        //   },
+        //   {
+        //     formattingMatch: data.atsResult.categoryScores.formattingStructure,
+        //   },
+        // );
+        setIsAnalyzing(false);
+      },
+      onError: (error) => {
+        console.log(error);
+        setIsAnalyzing(false);
+      },
+    });
   };
 
   const handleFileChange = (file) => {
@@ -89,19 +114,10 @@ const UploadResume = () => {
       fileInputRef.current.value = "";
     }
   };
-  useEffect(() => {
-    if (isSuccess) {
-      setIsAnalyzing(true);
-      console.log(data);
-    }
-    if (isError) {
-      console.log(error);
-      setIsAnalyzing(true);
-    }
-  }, [isSuccess, isError]);
+
   return (
-    <div className="w-full py-8 sm:py-10">
-      <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+    <div className="w-full flex flex-col gap-8 py-8 sm:py-10">
+      <div className="grid lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
         <div>
           <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-600 ring-1 ring-blue-100">
             <Sparkles className="mr-2 h-4 w-4" />
@@ -146,7 +162,7 @@ const UploadResume = () => {
         </Card>
       </div>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_22rem]">
+      <div>
         <section className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="flex flex-col gap-3 border-b border-slate-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -255,42 +271,6 @@ const UploadResume = () => {
               </FieldDescription>
             </Field>
           </div>
-        </section>
-
-        <aside className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-md bg-slate-950 text-white">
-              <ClipboardList className="h-5 w-5" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-slate-950">
-                Analysis Preview
-              </h2>
-              <p className="text-sm text-slate-600">What you will receive</p>
-            </div>
-          </div>
-
-          <div className="mt-6 space-y-5">
-            {scoreItems.map((item) => (
-              <div key={item.label}>
-                <div className="flex items-center justify-between gap-4 text-sm">
-                  <span className="font-semibold text-slate-700">
-                    {item.label}
-                  </span>
-                  <span className="font-bold text-slate-950">
-                    {item.value}%
-                  </span>
-                </div>
-                <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className={`h-full rounded-full ${item.color}`}
-                    style={{ width: `${item.value}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
           <div className="mt-7 rounded-lg bg-slate-50 p-4 ring-1 ring-slate-200">
             <p className="text-sm font-bold text-slate-950">Before analysis</p>
             <div className="mt-4 space-y-3">
@@ -325,42 +305,76 @@ const UploadResume = () => {
               })}
             </div>
           </div>
-
-          <div className="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
-            <div className="flex items-start gap-3">
-              <WandSparkles className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
-              <p className="text-sm leading-6 text-blue-950">
-                The analyzer highlights missing keywords, formatting issues, and
-                practical rewrite ideas for the target role.
-              </p>
-            </div>
+          <div className="mt-6 flex flex-col gap-3 p-4  sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm leading-6 text-slate-600">
+              Your resume and job description are used only to generate this
+              analysis.
+            </p>
+            <Button
+              type="button"
+              disabled={!isReady || isAnalyzing}
+              onClick={handleAnalyze}
+              className="h-11 rounded-md bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700 disabled:bg-slate-300"
+            >
+              {isAnalyzing ? (
+                <>
+                  <LoaderCircle className="h-4 w-4 animate-spin" />
+                  Analyzing
+                </>
+              ) : (
+                <>
+                  Analyze Resume
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </Button>
           </div>
-        </aside>
+        </section>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 rounded-lg border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-6 text-slate-600">
-          Your resume and job description are used only to generate this
-          analysis.
-        </p>
-        <Button
-          type="button"
-          disabled={!isReady || isAnalyzing}
-          onClick={handleAnalyze}
-          className="h-11 rounded-md bg-blue-600 px-5 text-sm font-bold text-white hover:bg-blue-700 disabled:bg-slate-300"
-        >
-          {isAnalyzing ? (
-            <>
-              <LoaderCircle className="h-4 w-4 animate-spin" />
-              Analyzing
-            </>
-          ) : (
-            <>
-              Analyze Resume
-              <ArrowRight className="h-4 w-4" />
-            </>
-          )}
-        </Button>
+      <div className=" mt-6 rounded-lg border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-11 w-11 items-center justify-center rounded-md bg-slate-950 text-white">
+            <ClipboardList className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-slate-950">
+              Analysis Preview
+            </h2>
+            <p className="text-sm text-slate-600">What you will receive</p>
+          </div>
+        </div>
+
+        <div className="mt-6 space-y-5">
+          {scoreItems.map((item) => (
+            <div key={item.label}>
+              <div className="flex items-center justify-between gap-4 text-sm">
+                <span className="font-semibold text-slate-700">
+                  {item.label}
+                </span>
+                <span className="font-bold text-slate-950">
+                  {scoreItemsValue[item.tag]}%
+                </span>
+              </div>
+              <div className="mt-2 h-2 overflow-hidden rounded-full bg-slate-100">
+                <div
+                  className={`h-full rounded-full ${item.color}`}
+                  style={{ width: `${scoreItemsValue[item.tag]}%` }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 rounded-lg border border-blue-100 bg-blue-50 p-4">
+          <div className="flex items-start gap-3">
+            <WandSparkles className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" />
+            <p className="text-sm leading-6 text-blue-950">
+              The analyzer highlights missing keywords, formatting issues, and
+              practical rewrite ideas for the target role.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

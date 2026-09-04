@@ -1,8 +1,10 @@
 import { PDFParse } from "pdf-parse";
+import fs from "fs/promises";
 
 export const parseResume = async (filePath) => {
   try {
-    const parser = new PDFParse({ url: filePath });
+    const buffer = await fs.readFile(filePath);
+    const parser = new PDFParse({ data: buffer });
 
     const result = await parser.getText();
     return result.text;

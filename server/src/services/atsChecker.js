@@ -87,7 +87,7 @@ ${jd}`;
         responseMimeType: "application/json",
       },
     });
-    console.log(response.tex);
+    console.log(response.text);
     return JSON.parse(response.text);
   } catch (error) {
     console.error("JD normalization failed:", error);

@@ -22,10 +22,14 @@ export const uploadResume = async (req, res) => {
       });
     console.log("Normalizeing jd...");
     const normalizedJddd = await normalizeJD(jd);
+
+    console.log("JD JSON: ", normalizedJddd);
     console.log("Parsing resume to normal text...");
     const parsedResume = await parseResume(resumeFile.path);
+    console.log(" Parsed Resume : ", parsedResume);
     console.log("Normalizeing resume...");
     const normalizedResume = await normalizeResume(parsedResume);
+    console.log("  Resume JSON : ", normalizedResume);
     console.log("Calculating ats Score...");
     const atsResult = await atsChecker(normalizedResume, normalizedJddd);
     res.status(200).json({
